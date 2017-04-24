@@ -29,7 +29,7 @@ npm run build
 # The challenge
 In `src/utils`, you'll find two .json files. The JSON objects are similar to the structures sent back by the Nova back-end to NovaConnect once a user chooses a country. Start by creating a country selector page that will initiate a fetch from the back-end for the form structure JSON of that specific country. You can stub out the back-end call by just ingesting JSON files in the `utils` directory. Once the input to the form you have rendered is valid, the user should be able to 'proceed' which can just be a flag that you set somewhere (or log to console). Your country-independent form builder has to handle the following:
 - *types of fields*: the form should be able to handle `TEXT` and `SELECT` fields.
-- *validations*: the types of validations on fields can be `DATE` or `ALPHANUMERIC`. If the validation type is not a string but on object, it is subject to custom validation. See below for more information on these validation types. It's up to you when/how you should validate user input to allow for the most seamless user experience.
+- *validations*: the types of validations on fields can be `DATE` or `ALPHANUMERIC`. If the validation type is not a string but an object, it is subject to custom validation. See below for more information on these validation types. It's up to you when/how you should validate user input to allow for the most seamless user experience.
 - *error handling*: show appropriate messages if invalid
 
 Use this repo to get a basic react app setup. We like using [ReDux](http://redux.js.org/) to manage state but feel free to use any other system.
