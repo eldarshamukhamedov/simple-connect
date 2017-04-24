@@ -1,13 +1,13 @@
 # Introduction
-At Nova Credit, we're building a system that helps immigrants and lenders access international credit data. Part of this system is called Nova Connect. It's a web app that allows customers from any country to provide different authentication details required by a credit bureau to fetch a report.
+At Nova Credit, we're building a system that helps immigrants and lenders access international credit data. Part of this system is called [NovaConnect](https://neednova.com/docs.html). It's a widget that allows applicants from any country to apply through the same portal. Every country that is on Nova's platform requires a completely different set of personal data from that applicant in order to generate a match in their local databases. The number of data-points required from the applicant can be quite big. In order to have the NovaConnect widget remain lightweight we have created an in-house spec independent of the country.
 
-As a result, we spent a lot time geeking out about forms. Whereas most forms have a predefined schema (a typical auth form will require a username and password field, for eg.), we need to write form logic that can cater to various uses cases depending on the chosen country.
+To make NovaConnect independent of the country we have spent a lot of time geeking out on form-structures. The internal spec we have written is a JSON structure that defines the format of the form to be rendered in NovaConnect. This JSON structure is fetched from the back-end of Nova when the applicant has chosen their country.
 
-For this challenge, build a simple version of Nova Connect.
+For this challenge, build a simple version of NovaConnect.
 
 # Pre-requisites
-`npm`
-Node v7.x. If you don't have a version manager see [here](https://github.com/creationix/nvm/blob/master/README.markdown).
+- `npm`
+- Node v7.x. If you don't have a version manager see [here](https://github.com/creationix/nvm/blob/master/README.markdown).
 
 # Usage
 To start
@@ -18,7 +18,7 @@ npm run start
 
 To test
 ```
-npm run test
+npm test
 ```
 
 To build
@@ -27,40 +27,39 @@ npm run build
 ```
 
 # The challenge
-In src/utils, you'll find several .json files each containing a JSON object. The object is similar to the one sent by the the Nova back-end to Nova Connect once a user chooses a country and starts the flow. Start by using to `utils/response1.json` to create a form builder which would pass QA for the following stories:
-- As a user, I can choose a country from a list of countries.
-- As a user, I can enter data for any given field.
-- As a user, I should not be able to submit the form unless all fields pass validations
-- As a user, I can use the form on the web and on my phone.
+In `src/utils`, you'll find two .json files. The JSON objects are similar to the structures sent back by the Nova back-end to NovaConnect once a user chooses a country. Start by creating a country selector page that will initiate a fetch from the back-end for the form structure JSON of that specific country. You can stub out the back-end call by just ingesting JSON files in the `utils` directory. Once the input to the form you have rendered is valid, the user should be able to 'proceed' which can just be a flag that you set somewhere (or log to console). Your country-independent form builder has to handle the following:
+- *types of fields*: the form should be able to handle `TEXT`, `SELECT` and `RADIO`-button fields.
+- *validations*: the types of validations on fields can be `DATE`, `ALPHANUMERIC`, `PHONE`, and `DATE`. If the validation type is not a string but on object, it is subject to custom validation. See below for more information on these validation types. It's up to you when/how you should validate user input to allow for the most seamless user experience.
+- *error handling*: show appropriate messages if invalid
 
-From the JSON, you'll notice a few use cases that your solution should be able to handle:
-- types of fields: the form should be able to handle text, select and radio
-- validations : when/how should you validate user input to allow for the most seamless user experience.
-- error handling: how do you handle and display errors?
+Use this repo to get a basic react app setup. We like using [ReDux](http://redux.js.org/) to manage state but feel free to use any other system.
 
-Use this repo to get a basic react app setup. We love using Redux to manage state but feel free to use any other system.
+## Validations
+Each field in the JSON object provides a `validation` key which contains information on the required validation logic. Write validation logic for the following four validation types.
+- *DATE*: ISO 8601
+- *ALPHANUMERIC*: only letters and numbers should be allowed
+- *PHONE*: Phone format
 
-A note on validations:
-Each field in the JSON object provides a `validation` key which provides information on the required validation logic for that field. Write validation logic for the following three validation types.
-ALPHANUMERIC: only letters and numbers should be allowed
-PHONE: only numbers should be allowed.
-CUSTOM: this field's value should match (or be in the range of) another field's value. See the `field.validation.pairKey` value to know which other field to validate against
+When the validation key has an object as it's value it means that it's a complex validation where the field's validity depends on it's own type of validation *and* whether another field in the JSON form structure matches a RegExp pattern. As an example:
+```
+{
+	key: 'state'
+	validation: {
+		type: 'ALPHANUMERIC',
+		dependsOn: 'zipcode',
+		pattern: '/[A-Z]\d{6}/'
+	}
+}
+```
 
 # Example
-You can see the actual Nova Connect app live here: www.neednova.com/docs.html (click on the 'Import Credit Report' button to launch the modal)
+For your reference, you can see the actual NovaConnect app live [here](https://neednova.com/docs.html) (click on the 'Import Credit Report' button to launch the widget)
 
 # Criteria:
 Important
-- does the solution pass QA for the provided user stories and for the various JSON files provided
-- is the code production grade?
-- is the code well organized/abstracted/DRY
-
-Not important
-- UI: we love good UI but this is not a CSS challenge
-
-Bonus
-- is the user's life made easier through simple design
-
+- Does the solution pass our internal tests that are written to adhere to the assumptions in this guide?
+- Is the code production grade?
+- Is the code well organized/abstracted/DRY?
 
 # Misc
 This repo was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). If you have any issues running the app, contact us or refer to the create-react-app documentation.
