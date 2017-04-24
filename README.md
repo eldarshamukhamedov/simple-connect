@@ -51,9 +51,45 @@ When the validation key has an object as it's value it means that it's a complex
 	}
 }
 ```
+## Structure of JSON
+The JSON structure will have the following structure:
+- Root information: `country [string]`, `fields [array]`
+- Per field object: `key [string]`, `validation [string | object]`, `required [boolean]`
+- If validation is an object it contains: `type [string]`, `dependsOn [string]`, `pattern [string]`
+
 
 # Example
 For your reference, you can see the actual NovaConnect app live [here](https://neednova.com/docs.html) (click on the 'Import Credit Report' button to launch the widget)
+
+Example JSON form structure
+```
+{
+	country: 'mexico',
+	fields: [
+		{
+			key: 'zipcode',
+			validation: 'ALPHANUMERIC',
+			required: true
+		},
+		{
+			key: 'state',
+			validation: {
+				type: 'ALPHANUMERIC',
+				dependsOn: 'zipcode',
+				pattern: '/[A-Z]\d{6}/'
+			},
+			required: true
+		},
+		{
+			key: 'phone',
+			validation: PHONE,
+			required: false
+		},
+		...
+	]
+}
+```
+For other JSON examples see `src/utils`
 
 # Criteria:
 Important
