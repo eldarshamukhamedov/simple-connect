@@ -1,3 +1,128 @@
 {
-	"key": "test"
+	"country": "mexico",
+	"fields": [
+		{
+			"key": "first_name",
+			"label": "First name",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "last_name",
+			"label": "Last name",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "dob",
+			"label": "Date of birth",
+			"placeholder": "12-30-1990",
+			"fieldType": "TEXT",
+			"validation": "DATE",
+			"required": true
+		},
+		{
+			"key": "sex",
+			"label": "Sex",
+			"placeholder": "Select sex",
+			"fieldType": "SELECT",
+			"options": "Male|Female|Other",
+			"required": false
+		},
+		{
+			"key": "phone",
+			"label": "Phone number",
+			"placeholder": "+52 111 222 333",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": false
+		},
+		{
+			"key": "street1",
+			"label": "Street 1",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "street2",
+			"label": "Street 2",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": false
+		},
+		{
+			"key": "city",
+			"label": "City",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "zipcode",
+			"label": "Zipcode",
+			"placeholder": "CA12345",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "state",
+			"label": "Zipcode",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": {
+				"type": "ALPHANUMERIC",
+				"dependsOn": "zipcode",
+				"pattern": "/(?:^CA|^OH|^HI|^XA)\\d{5}/"
+			},
+			"required": true
+		},
+		{
+			"key": "country",
+			"label": "Country",
+			"placeholder": "",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "passportorigin",
+			"label": "Passport origin",
+			"placeholder": "Select origin",
+			"fieldType": "SELECT",
+			"options": "USA|Mexico",
+			"required": true
+		},
+		{
+			"key": "passportnumber",
+			"label": "Passport number",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		},
+		{
+			"key": "secondidentificationtype",
+			"label": "Secondary identification type",
+			"placeholder": "Select type",
+			"fieldType": "SELECT",
+			"options": "ID-Card|Driver-License|RFC-number",
+			"required": true
+		},
+		{
+			"key": "secondidentificationnumber",
+			"label": "Secondary identification number",
+			"placeholder": "",
+			"fieldType": "TEXT",
+			"validation": "ALPHANUMERIC",
+			"required": true
+		}
+	]
 }

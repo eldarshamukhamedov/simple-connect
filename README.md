@@ -10,20 +10,12 @@ For this challenge, build a simple version of NovaConnect.
 - Node v7.x. If you don't have a version manager see [here](https://github.com/creationix/nvm/blob/master/README.markdown).
 
 # Usage
-To start
+To test, run and build
 ```
 git clone https://github.com/neednova/simple-connect
-npm run start
-```
-
-To test
-```
 npm test
-```
-
-To build
-```
 npm run build
+npm start
 ```
 
 # The challenge
@@ -35,21 +27,14 @@ In `src/utils`, you'll find two .json files. The JSON objects are similar to the
 Use this repo to get a basic react app setup. We like using [ReDux](http://redux.js.org/) to manage state but feel free to use any other system.
 
 ## Validations
-Each field in the JSON object provides a `validation` key which contains information on the required validation logic. Write validation logic for the following four validation types.
+Each field in the JSON object provides a `validation` key which contains information on the required validation logic. Write validation logic for the following validation types.
 - *DATE*: ISO 8601
 - *ALPHANUMERIC*: only letters and numbers should be allowed
 
-When the validation key has an object as it's value it means that it's a complex validation where the field's validity depends on it's own type of validation *and* whether another field in the JSON form structure matches a RegExp pattern. As an example:
-```
-{
-	key: 'state'
-	validation: {
-		type: 'ALPHANUMERIC',
-		dependsOn: 'zipcode',
-		pattern: '/[A-Z]\d{6}/'
-	}
-}
-```
+When the validation key is an object it means that it is a complex validation where the field's validity depends on:
+1. It's own type of validation defined by `type`
+2. Whether the field with key `dependsOn` matches a RegExp pattern
+
 ## Structure of JSON
 The JSON structure will have the following structure:
 - Root information: `country [string]`, `fields [array]`

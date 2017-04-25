@@ -1,5 +1,5 @@
 {
-	"country": "mexico",
+	"country": "india",
 	"fields": [
 		{
 			"key": "first_name",
@@ -66,9 +66,9 @@
 			"required": true
 		},
 		{
-			"key": "zipcode",
-			"label": "Zipcode",
-			"placeholder": "CA12345",
+			"key": "pincode",
+			"label": "Pincode",
+			"placeholder": "123456",
 			"fieldType": "TEXT",
 			"validation": "ALPHANUMERIC",
 			"required": true
@@ -78,11 +78,7 @@
 			"label": "Zipcode",
 			"placeholder": "",
 			"fieldType": "TEXT",
-			"validation": {
-				"type": "ALPHANUMERIC",
-				"dependsOn": "zipcode",
-				"pattern": "/(?:^CA|^OH|^HI|^XA)\\d{5}/"
-			},
+			"validation": "ALPHANUMERIC",
 			"required": true
 		},
 		{
@@ -97,13 +93,14 @@
 			"label": "Document type",
 			"placeholder": "Select type",
 			"fieldType": "SELECT",
-			"options": "Passport|ID-Card|Driver-License",
+			"options": "Passport|Aadhaar|ID-Card|Driver-License|Voters-ID|Ration-Card",
 			"required": true
 		},
 		{
 			"key": "documentnumber",
 			"label": "Document number",
 			"placeholder": "",
+			"fieldType": "TEXT",
 			"validation": "ALPHANUMERIC",
 			"required": true
 		}
