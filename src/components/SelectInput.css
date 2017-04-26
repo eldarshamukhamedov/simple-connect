@@ -1,0 +1,147 @@
+.select-input {
+  margin: 1.7rem 0;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.select-input button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #212121;
+  font-size: 1rem;
+  outline: 0;
+  padding: 0.5rem 0;
+  position: relative;
+  text-align: left;
+  display: flex;
+}
+
+.select-input button .selected-text {
+  flex: 1 0 0;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-input button .dropdown-arrow {
+  position: relative;
+  padding: 0 1rem;
+}
+
+.select-input button .dropdown-arrow:after {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0.4rem;
+  right: 0.7rem;
+  border: 0.35rem solid transparent;
+  border-top-color: #aaa;
+}
+
+.select-input label,
+.select-input .helper-text {
+  box-sizing: border-box;
+  color: #aaa;
+  cursor: default;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.select-input label {
+  transition: color 0.3s;
+}
+
+.select-input .helper-text {
+  padding-top: 0.5rem;
+}
+
+.select-input .input-line {
+  border-bottom: 0.1rem solid #aaa;
+  position: relative;
+  transition: border 0.3s;
+  width: 100%;
+}
+
+.select-input .input-line:after {
+  border-bottom: #1E88E5 solid 0.15rem;
+  bottom: -0.1rem;
+  content: '';
+  position: absolute;
+  transform: scaleX(0);
+  transition: transform 0.3s, border-bottom-color 0.3s;
+  width: 100%;
+}
+
+/* Empty state */
+.select-input.empty button {
+  color: #aaa;
+}
+
+/* Error state */
+.select-input.error label {
+  color: #e53935;
+}
+.select-input.error .input-line:after {
+  border-bottom-color: #e53935;
+}
+.select-input.error .input-line:after {
+  transform: scaleX(1);
+}
+.select-input.error .helper-text {
+  color: #e53935;
+}
+
+/* Disabled state */
+.select-input.disabled button {
+  cursor: not-allowed;
+}
+.select-input.disabled label {
+  color: #aaa;
+}
+.select-input.disabled .input-line {
+  border-bottom: none;
+}
+.select-input.disabled .input-line:after {
+  border-bottom-style: dotted;
+  border-bottom-color: #aaa;
+}
+.select-input.disabled .input-line:after {
+  transform: scaleX(1);
+}
+
+/* Dropdown menu */
+.select-input .dropdown-menu {
+  background-color: #fff;
+  box-shadow: rgba(0,0,0,0.13) 0 0.1rem 0.3rem;
+  display: block;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  padding: 1rem 0;
+  position: absolute;
+  top: 0;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 0.3s, opacity 0.3s;
+  width: 100%;
+  z-index: 1;
+}
+.select-input.expanded .dropdown-menu {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.select-input .dropdown-menu li {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.3s;
+}
+.select-input.expanded .dropdown-menu li:hover {
+  background-color: #eee;
+}
