@@ -1,0 +1,96 @@
+.text-input {
+  display: flex;
+  flex-direction: column;
+  margin: 1.7rem 0;
+  position: relative;
+  width: 100%;
+}
+
+.text-input input {
+  background-color: transparent;
+  border: none;
+  caret-color: #1E88E5;
+  color: #212121;
+  font-size: 1rem;
+  outline: 0;
+  padding: 0.5rem 0;
+}
+
+.text-input input::placeholder {
+  color: #aaa;
+  transition: color 0.3s;
+}
+
+.text-input label,
+.text-input .helper-text {
+  box-sizing: border-box;
+  color: #aaa;
+  cursor: default;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.text-input label {
+  transition: color 0.3s;
+}
+
+.text-input .helper-text {
+  padding-top: 0.5rem;
+}
+
+.text-input .input-line {
+  border-bottom: 0.1rem solid #aaa;
+  position: relative;
+  transition: border 0.3s;
+  width: 100%;
+}
+
+.text-input .input-line:after {
+  border-bottom: #1E88E5 solid 0.15rem;
+  bottom: -0.1rem;
+  content: '';
+  position: absolute;
+  transform: scaleX(0);
+  transition: transform 0.3s, border-bottom-color 0.3s;
+  width: 100%;
+}
+
+/* Active state */
+.text-input.active label {
+  color: #1E88E5;
+}
+.text-input.active .input-line:after {
+  transform: scaleX(1);
+}
+
+/* Error state */
+.text-input.error label {
+  color: #e53935;
+}
+.text-input.error .input-line:after {
+  border-bottom-color: #e53935;
+}
+.text-input.error .input-line:after {
+  transform: scaleX(1);
+}
+.text-input.error .helper-text {
+  color: #e53935;
+}
+
+/* Disabled state */
+.text-input.disabled input {
+  cursor: not-allowed;
+}
+.text-input.disabled label {
+  color: #aaa;
+}
+.text-input.disabled .input-line {
+  border-bottom: none;
+}
+.text-input.disabled .input-line:after {
+  border-bottom-style: dotted;
+  border-bottom-color: #aaa;
+}
+.text-input.disabled .input-line:after {
+  transform: scaleX(1);
+}
