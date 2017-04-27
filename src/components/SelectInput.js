@@ -32,7 +32,7 @@ export class SelectInput extends Component {
     return (
       <div
         className={classNames('select-input', {
-          empty: !this.props.options.includes(this.props.selected),
+          empty: !this.props.options.includes(this.props.value),
           expanded: this.state.expanded,
           error: this.props.error,
           disabled
@@ -46,7 +46,7 @@ export class SelectInput extends Component {
           disabled={disabled}
         >
           <div className="selected-text">
-            {this.props.selected || this.props.placeholder}
+            {this.props.value || this.props.placeholder}
           </div>
           <div className="dropdown-arrow" />
         </button>
@@ -55,7 +55,7 @@ export class SelectInput extends Component {
         {!disabled &&
           <ul className="dropdown-menu">
             {this.props.options.map(option => (
-              <li key={option} onClick={() => this.props.onSelect(option)}>
+              <li key={option} onClick={() => this.props.onInput(option)}>
                 {option}
               </li>
             ))}
@@ -66,14 +66,14 @@ export class SelectInput extends Component {
 }
 SelectInput.propTypes = {
   id: string.isRequired,
-  selected: string,
+  value: string,
   options: arrayOf(string).isRequired,
   label: string.isRequired,
   placeholder: string.isRequired,
   helperText: string.isRequired,
   error: bool.isRequired,
   disabled: bool.isRequired,
-  onSelect: func.isRequired
+  onInput: func.isRequired
 };
 SelectInput.defaultProps = {
   options: [],
@@ -82,7 +82,7 @@ SelectInput.defaultProps = {
   helperText: 'Helper text',
   error: false,
   disabled: false,
-  onSelect(option) {
+  onInput(option) {
     console.warn(`Selected options=${option}`);
   }
 };
