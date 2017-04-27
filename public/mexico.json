@@ -75,7 +75,7 @@
 		},
 		{
 			"key": "state",
-			"label": "Zipcode",
+			"label": "State",
 			"placeholder": "",
 			"fieldType": "TEXT",
 			"validation": {
