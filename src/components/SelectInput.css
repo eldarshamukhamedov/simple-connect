@@ -143,5 +143,5 @@
   transition: background-color 0.3s;
 }
 .select-input.expanded .dropdown-menu li:hover {
-  background-color: #eee;
+  background-color: #e7e7e7;
 }
