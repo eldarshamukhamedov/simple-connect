@@ -38,7 +38,7 @@ describe('SelectInput', () => {
       <SelectInput
         id="select-test"
         placeholder="Test"
-        selected="California"
+        value="California"
         options={['California']}
       />
     );
@@ -106,15 +106,15 @@ describe('SelectInput', () => {
   });
 
   it('should update selected value on dropdown menu click', () => {
-    const onSelectSpy = spy();
+    const onInputSpy = spy();
     const wrapper = shallow(
       <SelectInput
         id="select-test"
         options={['California']}
-        onSelect={onSelectSpy}
+        onInput={onInputSpy}
       />
     );
     wrapper.find('.dropdown-menu li').simulate('click');
-    expect(onSelectSpy.calledWith('California')).toBe(true);
+    expect(onInputSpy.calledWith('California')).toBe(true);
   });
 });
