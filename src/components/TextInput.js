@@ -29,8 +29,10 @@ export class TextInput extends Component {
             this.setState({ active: false });
             this.props.onVisit();
           }}
-          onChange={event =>
-            !this.props.disabled && this.props.onInput(event.target.value)}
+          onChange={event => {
+            !this.props.disabled && this.props.onInput(event.target.value);
+            this.props.onVisit();
+          }}
           disabled={this.props.disabled}
         />
         <div className="input-line" />
