@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import { FormManager } from './components/FormManager';
-import { countryReducer, fieldsReducer } from './reducers';
+import { countryReducer, fieldsReducer, pagerReducer } from './reducers';
 import { parseFieldSchema } from './utils';
 
 import './App.css';
@@ -18,7 +18,8 @@ class App extends Component {
     this.store = createStore(
       combineReducers({
         country: countryReducer,
-        fields: fieldsReducer
+        fields: fieldsReducer,
+        pager: pagerReducer
       }), {
         country: null,
         fields: [parseFieldSchema({

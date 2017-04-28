@@ -8,6 +8,7 @@ export class TextInput extends Component {
     super(props);
     this.state = { active: false };
   }
+
   render() {
     return (
       <div
@@ -20,7 +21,6 @@ export class TextInput extends Component {
         <label htmlFor={this.props.id}>{this.props.label}</label>
         <input
           id={this.props.id}
-          ref={ref => this.inputElement = ref}
           type="text"
           value={this.state.value}
           placeholder={this.props.placeholder}

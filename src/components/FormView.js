@@ -1,5 +1,13 @@
 import React from 'react';
-import { string, bool, arrayOf, shape, oneOf, oneOfType } from 'prop-types';
+import {
+  number,
+  string,
+  bool,
+  arrayOf,
+  shape,
+  oneOf,
+  oneOfType
+} from 'prop-types';
 import { createFormField } from './FormField';
 import { createFormSubmit } from './FormSubmit';
 import { createConnectedComponent } from '../utils';
@@ -8,13 +16,14 @@ import './FormView.css';
 export class FormView extends React.Component {
   shouldComponentUpdate(nextProps) {
     return (
-      this.props.heading !== nextProps.heading ||
-      !this.props.fields.every((v,i) => v.id === nextProps.fields[i].id)
+      !this.props.fields.every((v,i) => v.id === nextProps.fields[i].id) ||
+      this.props.cursor !== nextProps.cursor
     );
   }
 
   render() {
     const content = this.props.fields
+      .slice(this.props.cursor, this.props.cursor + this.props.count)
       .map(field => {
         const Component = createConnectedComponent(createFormField(field));
         return <Component key={field.id} />
@@ -58,8 +67,12 @@ FormView.propTypes = {
     })
   ).isRequired,
   heading: string.isRequired,
+  cursor: number.isRequired,
+  count: number.isRequired
 };
 FormView.defaultProps = {
   fields: [],
-  heading: 'Form View'
+  heading: 'Form View',
+  cursor: 0,
+  count: 1
 };

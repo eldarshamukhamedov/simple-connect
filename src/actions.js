@@ -24,6 +24,11 @@ export function updateField(field = {}) {
   };
 }
 
+export const NEXT_PAGE = 'NEXT_PAGE';
+export function nextPage() {
+  return { type: NEXT_PAGE };
+}
+
 export function fetchCountryData(country) {
   return function(dispatch) {
     return fetch(`//localhost:3000/${country}.json`)
