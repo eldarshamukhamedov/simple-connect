@@ -1,14 +1,10 @@
-import { TextInput } from './components/TextInput';
-import { SelectInput } from './components/SelectInput';
 import { connect } from 'react-redux';
 
-export function createConnectedComponent(
-  {
-    Component,
-    mapStateToProps,
-    mapDispatchToProps
-  }
-) {
+export function createConnectedComponent({
+  Component,
+  mapStateToProps,
+  mapDispatchToProps
+}) {
   return connect(mapStateToProps, mapDispatchToProps)(Component);
 }
 
@@ -20,6 +16,7 @@ export function parseFieldSchema({
 }) {
   return {
     id,
+    helperText: null,
     options: options ? options.split('|') : null,
     validation,
     valid: true,
@@ -28,58 +25,6 @@ export function parseFieldSchema({
     ...other
   };
 }
-
-export const createFieldComponent = ({
-  fields = [],
-  onInput = () => {},
-  onVisit = () => {}
-}) => ({ id }) => {
-  const field = fields.find(f => f.id === id);
-  const dependentField = field.validation && field.validation.dependsOn
-    ? fields.find(f => f.id === field.validation.dependsOn)
-    : null;
-
-  const props = {
-    key: field.id,
-    id: field.id,
-    value: field.value,
-    options: field.options || null,
-    label: field.label,
-    placeholder: field.placeholder,
-    helperText: field.required ? 'Required field' : '',
-    error: !field.valid || (field.required && !field.value && field.visited),
-    disabled: false,
-
-    onInput(nextValue) {
-      const result = validate(nextValue, field, dependentField);
-      onInput({
-        id,
-        valid: result.valid,
-        value: nextValue
-      });
-    },
-    onVisit() {
-      onVisit({ id, visited: true });
-    }
-  };
-
-  const Component = field.fieldType === 'SELECT' ? SelectInput : TextInput;
-
-  return {
-    Component,
-    props
-  };
-};
-
-/*
-Error state if:
-- required, visited, and missing => 'Required field'
-- fails validation => [
-  'Expected alpha-numeric characters only',
-  'Expected a date in the formal MM-DD-YYYY`,
-  '
-]
- */
 
 const ALPHANUMERIC = /^[0-9a-zA-Z-()+.\s]*$/;
 const DAY_IN_MONTH = {
@@ -97,7 +42,7 @@ const DAY_IN_MONTH = {
   12: 31
 };
 
-function validate(nextValue, field, dependentField = null) {
+export function validate(nextValue, field, dependentField = null) {
   if (field.fieldType === 'TEXT') {
     // Primary field validation (ALPHANUMERIC)
     if (
@@ -150,6 +95,7 @@ function validateDate(nextValue) {
       .map(value => parseInt(value, 10));
 
     return (
+      /^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$/.test(nextValue) &&
       year >= 1000 &&
       year <= 9999 && // in case of, you know, time travelers
       month >= 1 &&

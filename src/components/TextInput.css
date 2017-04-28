@@ -27,11 +27,11 @@
   color: #aaa;
   cursor: default;
   font-size: 0.75rem;
+  transition: color 0.3s;
   user-select: none;
 }
 
 .text-input label {
-  transition: color 0.3s;
 }
 
 .text-input .helper-text {
@@ -39,7 +39,7 @@
 }
 
 .text-input .input-line {
-  border-bottom: 0.1rem solid #aaa;
+  border-bottom: 1px solid #aaa;
   position: relative;
   transition: border 0.3s;
   width: 100%;

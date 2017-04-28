@@ -60,7 +60,7 @@
 }
 
 .select-input .input-line {
-  border-bottom: 0.1rem solid #aaa;
+  border-bottom: 1px solid #aaa;
   position: relative;
   transition: border 0.3s;
   width: 100%;
