@@ -1,4 +1,4 @@
-import { setCountry, updateField } from '../actions';
+import { fetchCountryData, updateField } from '../actions';
 import { createConnectedComponent } from '../utils';
 import { FormView } from './FormView';
 
@@ -12,7 +12,9 @@ export function createManager() {
           ? 'Welcome to Simple Connect'
           : state.country,
         submitLabel: 'Next',
-        submitDisabled: state.fields.some(field => !field.valid)
+        submitDisabled: state.fields.some(field => (
+          !field.valid || (field.required && !field.value)
+        ))
       };
     },
     mapDispatchToProps(dispatch) {
@@ -20,13 +22,16 @@ export function createManager() {
         onInput(payload) {
           dispatch(updateField(payload));
         },
+        onVisit(payload) {
+          dispatch(updateField(payload));
+        },
         onSubmit(fields) {
           const data = fields.reduce((carry, item) => {
             carry[item.id] = item.value;
             return carry;
           }, {});
-          if (data.country) {
-            dispatch(setCountry(data.country.toLowerCase()));
+          if (data.countrySelect) {
+            dispatch(fetchCountryData(data.countrySelect.toLowerCase()));
           } else {
             console.log('Submitting data', data);
           }
