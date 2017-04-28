@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import { Manager } from './components/Manager';
 import { countryReducer, fieldsReducer } from './reducers';
-import { replaceFields } from './actions';
+import { parseFieldSchema } from './utils';
 
 import './App.css';
 
@@ -19,25 +19,18 @@ class App extends Component {
       combineReducers({
         country: countryReducer,
         fields: fieldsReducer
-      }),
-      composeEnhancers(applyMiddleware(thunkMiddleware))
-    );
-
-    // Populate fields with a country selector
-    this.store.dispatch(
-      replaceFields([
-        {
-          id: 'country',
+      }), {
+        country: null,
+        fields: [parseFieldSchema({
+          key: 'countrySelect',
           label: 'Country',
           placeholder: 'Select country',
           fieldType: 'SELECT',
-          options: 'Mexico|India',
-          required: true,
-          valid: false,
-          value: null,
-          visited: false
-        }
-      ])
+          options: 'Mexico|India|Test',
+          required: true
+        })]
+      },
+      composeEnhancers(applyMiddleware(thunkMiddleware))
     );
   }
 

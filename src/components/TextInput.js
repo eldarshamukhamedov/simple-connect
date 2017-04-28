@@ -25,7 +25,10 @@ export class TextInput extends Component {
           value={this.state.value}
           placeholder={this.props.placeholder}
           onFocus={() => this.setState({ active: true })}
-          onBlur={() => this.setState({ active: false })}
+          onBlur={() => {
+            this.setState({ active: false });
+            this.props.onVisit();
+          }}
           onChange={event =>
             !this.props.disabled && this.props.onInput(event.target.value)}
           disabled={this.props.disabled}
@@ -43,7 +46,8 @@ TextInput.propTypes = {
   helperText: string.isRequired,
   error: bool.isRequired,
   disabled: bool.isRequired,
-  onInput: func.isRequired
+  onInput: func.isRequired,
+  onVisit: func.isRequired
 };
 TextInput.defaultProps = {
   label: 'Label',
@@ -51,7 +55,6 @@ TextInput.defaultProps = {
   helperText: 'Helper text',
   error: false,
   disabled: false,
-  onInput(value) {
-    console.warn(`Input value=${value}`);
-  }
+  onInput() {},
+  onVisit() {}
 };

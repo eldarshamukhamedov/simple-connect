@@ -14,6 +14,7 @@ export class SelectInput extends Component {
   onClickAway() {
     this.setState({ expanded: false });
     document.removeEventListener('click', this.onClickAway);
+    this.props.onVisit();
   }
 
   onExpandDropdown() {
@@ -73,7 +74,8 @@ SelectInput.propTypes = {
   helperText: string.isRequired,
   error: bool.isRequired,
   disabled: bool.isRequired,
-  onInput: func.isRequired
+  onInput: func.isRequired,
+  onVisit: func.isRequired
 };
 SelectInput.defaultProps = {
   options: [],
@@ -82,7 +84,6 @@ SelectInput.defaultProps = {
   helperText: 'Helper text',
   error: false,
   disabled: false,
-  onInput(option) {
-    console.warn(`Selected options=${option}`);
-  }
+  onInput() {},
+  onVisit() {}
 };

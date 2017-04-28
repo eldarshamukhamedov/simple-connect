@@ -1,3 +1,5 @@
+import { parseFieldSchema } from './utils';
+
 export const SET_COUNTRY = 'SET_COUNTRY';
 export function setCountry(country = null) {
   return {
@@ -22,13 +24,13 @@ export function updateField(field = {}) {
   };
 }
 
-export function fetchQuestions(country) {
-  return function (dispatch) {
-    return fetch(`//localhost:3000/${country}`)
+export function fetchCountryData(country) {
+  return function(dispatch) {
+    return fetch(`//localhost:3000/${country}.json`)
       .then(response => response.json())
       .then(({ country, fields }) => {
+        dispatch(replaceFields(fields.map(parseFieldSchema)));
         dispatch(setCountry(country));
-        dispatch(replaceFields(fields));
       })
       .catch(error => {
         // Would typically retry, or attempt to recover here, but YOLO
