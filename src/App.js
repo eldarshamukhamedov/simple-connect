@@ -26,7 +26,7 @@ class App extends Component {
           label: 'Country',
           placeholder: 'Select country',
           fieldType: 'SELECT',
-          options: 'Mexico|India|Test',
+          options: 'Mexico|India',
           required: true
         })]
       },
