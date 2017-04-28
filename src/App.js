@@ -3,7 +3,7 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 
-import { Manager } from './components/Manager';
+import { FormManager } from './components/FormManager';
 import { countryReducer, fieldsReducer } from './reducers';
 import { parseFieldSchema } from './utils';
 
@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <Provider store={this.store}>
         <div className="App">
-          <Manager />
+          <FormManager />
         </div>
       </Provider>
     );

@@ -1,15 +1,26 @@
 import React from 'react';
-import { any, string, bool, func, arrayOf, shape, oneOf, oneOfType } from 'prop-types';
-import { Button } from './Button';
-import { createFieldComponent } from '../utils';
+import { string, bool, arrayOf, shape, oneOf, oneOfType } from 'prop-types';
+import { createFormField } from './FormField';
+import { createFormSubmit } from './FormSubmit';
+import { createConnectedComponent } from '../utils';
 import './FormView.css';
 
-
 export class FormView extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return (
+      this.props.heading !== nextProps.heading ||
+      !this.props.fields.every((v,i) => v.id === nextProps.fields[i].id)
+    );
+  }
+
   render() {
     const content = this.props.fields
-      .map(createFieldComponent(this.props))
-      .map(({ Component, props }) => <Component {...props} />);
+      .map(field => {
+        const Component = createConnectedComponent(createFormField(field));
+        return <Component key={field.id} />
+      });
+    
+    const SubmitButton = createConnectedComponent(createFormSubmit());
 
     return (
       <section className="form-view">
@@ -18,11 +29,7 @@ export class FormView extends React.Component {
           {content}
         </section>
         <footer>
-          <Button
-            label={this.props.submitLabel}
-            disabled={this.props.submitDisabled}
-            onClick={() => this.props.onSubmit(this.props.fields)}
-          />
+          <SubmitButton />
         </footer>
       </section>
     );
@@ -51,18 +58,8 @@ FormView.propTypes = {
     })
   ).isRequired,
   heading: string.isRequired,
-  submitLabel: string.isRequired,
-  submitDisabled: bool.isRequired,
-  submitValue: any,
-  onInput: func.isRequired,
-  onSubmit: func.isRequired
 };
 FormView.defaultProps = {
   fields: [],
-  heading: 'Form View',
-  submitLabel: 'Next',
-  submitDisabled: true,
-  submitValue: {},
-  onInput() {},
-  onSubmit() {}
+  heading: 'Form View'
 };

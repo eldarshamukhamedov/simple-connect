@@ -72,7 +72,6 @@ describe('SelectInput', () => {
     );
     wrapper.find('button').simulate('click');
     expect(wrapper.state('expanded')).toBe(true);
-    console.log(document.onclick);
     document.querySelector('body').click();
     expect(wrapper.state('expanded')).toBe(false);
   });
