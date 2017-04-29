@@ -22,6 +22,11 @@ class App extends Component {
         pager: pagerReducer
       }), {
         country: null,
+        pager: {
+          pages: [[{ start: 0, end: 0, height: 1 }]],
+          cursor: 0,
+          count: 4
+        },
         fields: [parseFieldSchema({
           key: 'countrySelect',
           label: 'Country',

@@ -22,6 +22,7 @@ export function parseFieldSchema({
     valid: true,
     value: null,
     visited: false,
+    height: other.fieldType === 'SELECT' ? 3 : 1,
     ...other
   };
 }
@@ -106,4 +107,33 @@ function validateDate(nextValue) {
   } catch (e) {
     return false;
   }
+}
+
+export function mapFieldsToPages(fields) {
+  const MAX_HEIGHT = 4;
+  const {
+    pages,
+    lastPage
+  } = fields.reduce((carry, field, index) => {
+    if (field.height > MAX_HEIGHT) {
+      if (carry.lastPage.height > 0) carry.pages.push(carry.lastPage);
+      carry.lastPage = { start: index+1, end: index+1, height: 0 };
+    }
+    else if (carry.lastPage.height + field.height > MAX_HEIGHT) {
+      carry.pages.push(carry.lastPage);
+      carry.lastPage = { start: index, end: index, height: field.height };
+    }
+    else {
+      carry.lastPage.end = index;
+      carry.lastPage.height += field.height;
+    }
+    return carry;
+  }, {
+    pages: [],
+    lastPage: { start: 0, end: 0, height: 0 }
+  });
+
+  if (lastPage.height > 0) pages.push(lastPage);
+
+  return pages;
 }

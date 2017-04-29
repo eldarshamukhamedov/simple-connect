@@ -2,6 +2,7 @@ import {
   SET_COUNTRY,
   REPLACE_FIELDS,
   UPDATE_FIELD,
+  REPLACE_PAGES,
   NEXT_PAGE
 } from './actions';
 
@@ -32,9 +33,11 @@ export const fieldsReducer = (state = fieldsInitialState, action) => {
   }
 };
 
-export const pagerInitialState = { cursor: 0, count: 4 };
+export const pagerInitialState = { pages: [], cursor: 0, count: 4 };
 export const pagerReducer = (state = pagerInitialState, action) => {
   switch (action.type) {
+    case REPLACE_PAGES:
+      return { ...state, pages: action.payload };
     case REPLACE_FIELDS:
       // Reset cursor for replaced fields
       return pagerInitialState;
