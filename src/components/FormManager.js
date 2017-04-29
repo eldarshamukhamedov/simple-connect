@@ -7,6 +7,8 @@ export function createFormManager() {
     mapStateToProps(state) {
       return {
         fields: state.fields,
+        cursor: state.pager.cursor,
+        count: state.pager.count,
         heading: state.country === null
           ? 'Welcome to Simple Connect'
           : state.country
